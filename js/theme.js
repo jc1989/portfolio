@@ -85,24 +85,23 @@ $(document).ready(function () {
             $(document.body).css({paddingRight: 0});
         }
     });
-
     function validateForm(selector) {
-      Array.from(document.querySelectorAll(selector)).forEach(item => {
-        item.addEventListener('input', (e) => {
+        Array.prototype.slice.call(document.querySelectorAll(selector)).forEach(function(item) {
+          item.addEventListener('input' ,function (e)  {
             if(e.target.value === ''){
-                item.dataset.touched = false;
+              item.dataset.touched = false;
             }
+          });
+          item.addEventListener('invalid', function() {
+            item.dataset.touched = true;
+          });
+          item.addEventListener('blur', function () {
+            if (item.value !== '') item.dataset.touched = true;
+          });
         });
-        item.addEventListener('invalid', () => {
-          item.dataset.touched = true;
-        });
-        item.addEventListener('blur', () => {
-          if (item.value !== '') item.dataset.touched = true;
-        });
-      });
-    };
-    validateForm('.js-modal-form .form-field');
-    validateForm('.js-footer-form .form-field');
+      }
+      validateForm('.js-modal-form .form-field');
+      validateForm('.js-footer-form .form-field');
   //  validateForm('.form-wrapper .form-field');
 
   var modalForm = document.querySelector('.js-modal-form');
@@ -132,7 +131,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: './mail.php',
+      url: '../mail.php',
       data: formData,
       success: function() {
         $('#contact-modal').modal('hide');
