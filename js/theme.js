@@ -85,6 +85,7 @@ $(document).ready(function () {
             $(document.body).css({paddingRight: 0});
         }
     });
+
     function validateForm(selector) {
         Array.prototype.slice.call(document.querySelectorAll(selector)).forEach(function(item) {
           item.addEventListener('input' ,function (e)  {
@@ -131,7 +132,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: '../mail.php',
+      url: '/mail.php',
       data: formData,
       success: function() {
         $('#contact-modal').modal('hide');
